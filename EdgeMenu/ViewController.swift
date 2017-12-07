@@ -8,18 +8,25 @@
 
 import UIKit
 
-class ViewController: UIViewController {
-
+class ViewController: UIViewController, EdgeMenuDelegate {
+    func cariocaMenuDidSelect(_ menu: EdgeMenu, indexPath: IndexPath) {
+        print("did select \(indexPath.row)")
+    }
+    var menu: EdgeMenu?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+
+        self.view.backgroundColor = .white
+    
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    override func viewDidAppear(_ animated: Bool) {
+        initialiseEdgeMenu()
     }
-
-
+    
+    private func initialiseEdgeMenu() {
+        let dataSource = MenuController() as EdgeMenuDataSource
+        menu = EdgeMenu(dataSource: dataSource, delegate: self, hostView: self.view)
+    }
 }
-
